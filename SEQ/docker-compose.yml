@@ -1,0 +1,10 @@
+services:
+  seq:
+    image: datalust/seq:latest
+    ports:
+      - "5341:80"
+    environment:
+      - ACCEPT_EULA=Y
+    volumes:
+      - ${SEQ_VOLUME}:/data
+    restart: always

@@ -1,0 +1,6 @@
+services:
+  mockserver:
+    image: mockserver/mockserver
+    ports:
+      - "1080:1080"
+    restart: always

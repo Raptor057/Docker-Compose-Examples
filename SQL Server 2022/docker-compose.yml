@@ -9,4 +9,4 @@ services:
       - SA_PASSWORD=${SA_PASSWORD}
     volumes:
       - ${SQL_VOLUME}:/var/opt/mssql
-    restart: unless-stopped
+    restart: always

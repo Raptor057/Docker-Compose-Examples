@@ -1,0 +1,88 @@
+version: "3.8"
+
+services:
+
+  # Mailhog - capturar correos de apps
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
+      - "1025:1025"
+    restart: always
+
+  # Redis - caché, pub/sub, testing
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    volumes:
+      - ${REDIS_VOLUME}:/data
+    restart: always
+
+  # PostgreSQL - base de datos para pruebas
+  postgres:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=testdb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+
+  # WireMock - simular APIs REST
+  wiremock:
+    image: wiremock/wiremock
+    ports:
+      - "8080:8080"
+    restart: always
+
+  # Toxiproxy - simular fallas de red
+  toxiproxy:
+    image: shopify/toxiproxy
+    ports:
+      - "8474:8474"   # Admin API
+      - "8666:8666"   # Proxy traffic (puedes mapear más)
+    restart: always
+
+  # Trivy - escanear imágenes desde contenedor (ejemplo)
+  trivy:
+    image: aquasec/trivy:latest
+    entrypoint: ["tail", "-f", "/dev/null"] # modo idle hasta que lo uses con exec
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+
+  # k6 - carga HTTP (se ejecuta manualmente)
+  k6:
+    image: grafana/k6
+    entrypoint: ["tail", "-f", "/dev/null"]
+    volumes:
+      - ./k6:/scripts
+    restart: unless-stopped
+
+  # SonarQube - análisis de código
+  sonarqube:
+    image: sonarqube:lts
+    container_name: sonarqube
+    ports:
+      - "9000:9000"
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    volumes:
+      - ${SONARQUBE_DATA}:/opt/sonarqube/data
+      - ${SONARQUBE_EXTENSIONS}:/opt/sonarqube/extensions
+    restart: always
+
+  # OWASP ZAP - escáner de seguridad web
+  zap:
+    image: owasp/zap2docker-stable
+    entrypoint: ["tail", "-f", "/dev/null"]
+    ports:
+      - "8081:8080"  # Cambiado para no chocar con wiremock
+    restart: unless-stopped
+
+volumes:
+  pgdata:
