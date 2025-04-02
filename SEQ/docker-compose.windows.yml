@@ -1,0 +1,14 @@
+#docker compose -f docker-compose.windows.yml up -d
+services:
+  seq:
+    image: datalust/seq:latest
+    ports:
+      - "5341:80"
+    environment:
+      - ACCEPT_EULA=Y
+    volumes:
+      - seq:/data
+    restart: always
+
+volumes:
+    seq:
