@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  redoc:
+    image: redocly/redoc
+    ports:
+      - "3002:80"
+    environment:
+      SPEC_URL: swagger/openapi.yaml
+      PAGE_TITLE: "Documentación API - Ejemplo"
+      PAGE_FAVICON: https://redoc.ly/favicon.png
+      REDOC_OPTIONS: scrollYOffset=50 theme.colors.primary.main=#25c2a0
+    volumes:
+      - ./swagger:/usr/share/nginx/html/swagger:ro
