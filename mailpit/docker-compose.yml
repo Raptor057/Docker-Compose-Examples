@@ -15,4 +15,4 @@ services:
       MP_MAX_MESSAGES: 10000              # Límite de mensajes almacenados
       MP_MESSAGE_SIZE_LIMIT: 10485760     # Límite de tamaño por mensaje (10 MB)
     volumes:
-      - ./mailpit-data:/data
+      - ${DOCKER_VOLUME_ABSOLUTE_PATH}/mailpit-data:/data

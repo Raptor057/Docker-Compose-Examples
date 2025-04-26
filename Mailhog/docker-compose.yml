@@ -7,7 +7,7 @@ services:
       - "1025:1025"   # SMTP
 
     volumes:
-      - ${MAILHOG_VOLUME}:/data
+      - ${DOCKER_VOLUME_ABSOLUTE_PATH}mailhog-data:/data
     restart: always
 
 # En tu app configura:

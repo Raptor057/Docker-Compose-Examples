@@ -6,5 +6,5 @@ services:
     environment:
       - ACCEPT_EULA=Y
     volumes:
-      - ${SEQ_VOLUME}:/data
+      - ${DOCKER_VOLUME_ABSOLUTE_PATH}/seq-data:/data
     restart: always

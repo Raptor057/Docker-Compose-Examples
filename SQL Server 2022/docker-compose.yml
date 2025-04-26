@@ -6,7 +6,7 @@ services:
       - "1433:1433"
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=${SA_PASSWORD}
+      - SA_PASSWORD=Cbmwjmkq23
     volumes:
-      - ${SQL_VOLUME}:/var/opt/mssql
+      - ${DOCKER_VOLUME_ABSOLUTE_PATH}/sql-data:/var/opt/mssql
     restart: always

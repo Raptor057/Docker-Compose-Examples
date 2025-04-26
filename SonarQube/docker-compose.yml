@@ -7,8 +7,8 @@ services:
     environment:
       - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
     volumes:
-      - ${SONARQUBE_DATA}:/opt/sonarqube/data
-      - ${SONARQUBE_EXTENSIONS}:/opt/sonarqube/extensions
+      - ./data:/opt/sonarqube/data
+      - ./extensions:/opt/sonarqube/extensions
     restart: always
 
 # default: admin / admin

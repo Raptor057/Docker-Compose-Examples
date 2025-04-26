@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   watchtower:
     container_name: watchtower
@@ -20,3 +18,4 @@ services:
       - WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD=${SMTP_PASS}
       - WATCHTOWER_NOTIFICATION_EMAIL_DELAY=2
       - WATCHTOWER_NOTIFICATIONS_LEVEL=info
+networks: {}
